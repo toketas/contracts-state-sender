@@ -1,0 +1,10 @@
+{
+   "namespace": "com.vistajet.contracts.avro",
+   "type": "record",
+   "name": "Key",
+   "fields": [{
+     "name": "aggregateId",
+     "type": "string",
+     "doc": "unique transaction aggregateId"
+   }]
+ }

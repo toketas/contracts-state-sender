@@ -1,0 +1,408 @@
+{
+     "type": "record",
+     "namespace": "com.vistajet.contracts.avro",
+     "name": "ContractState",
+     "fields": [
+         {
+             "name": "correlationId",
+             "type": "string",
+             "doc": "The ID of the request",
+             "default": null
+         },
+         {
+             "name": "aggregateId",
+             "type": "string",
+             "doc": "The entity UUID"
+         },
+         {
+             "name": "accountCurrency",
+             "type": ["null", "string"],
+             "doc": "The account currency symbol",
+             "default": null
+         },
+         {
+             "name": "accountId",
+             "type": "long",
+             "doc": "The customers account Id"
+         },
+         {
+             "name": "paymentSchedule",
+             "type":
+{
+    "type": "record",
+    "namespace": "com.vistajet.contracts.avro",
+    "name": "PaymentSchedule",
+    "fields": [
+        {
+            "name": "aggregateId",
+            "type": "string",
+            "doc": "The entity UUID"
+        },
+        {
+            "name": "contractAggregateId",
+            "type": "string",
+            "doc": "The Contract UUID"
+        },
+        {
+            "name": "paymentOptionsDescription",
+            "type": "string",
+            "doc": "The payment schedule selected option description"
+        },
+        {
+            "name": "installmentsQuantity",
+            "type": ["null", "int"],
+            "doc": "The amount of installments from Equal Installments option",
+            "default": null
+        },
+        {
+            "name": "advanceNoticeDays",
+            "type": "int",
+            "doc": "The advance notice for due period in days",
+            "default": 30
+        },
+        {
+            "name": "deposit",
+            "type":
+{
+     "type": "record",
+     "namespace": "com.vistajet.contracts.avro",
+     "name": "Deposit",
+     "fields": [
+         {
+             "name": "aggregateId",
+             "type": "string",
+             "doc": "The entity UUID"
+         },
+         {
+             "name": "contractAggregateId",
+             "type": "string",
+             "doc": "The Contract UUID"
+         },
+         {
+             "name": "description",
+             "type": ["null", "string"],
+             "doc": "The deposit description",
+             "default": null
+         },
+         {
+             "name": "amountInCents",
+             "type": "long",
+             "doc": "The deposit total amount in cents",
+             "default": 0
+         },
+         {
+             "name": "dueDate",
+             "type": "string",
+             "doc": "The deposit date of due"
+         },
+         {
+             "name": "invoiceId",
+             "type": ["null", "string"],
+             "doc": "The deposit invoice invoice_id",
+             "default": null
+         },
+         {
+             "name": "invoiceLinkId",
+             "type": ["null", "long"],
+             "doc": "The deposit invoice linked_invoice_id",
+             "default": null
+         },
+         {
+              "name": "invoiceStatus",
+              "type": ["null",
+{
+    "type": "record",
+    "namespace": "com.vistajet.contracts.avro",
+    "name": "InvoiceStatus",
+    "fields": [
+         {
+            "name": "statusId",
+            "type": ["null", "long"],
+            "doc": "The payment schedule line status aggregateId",
+            "default": null
+          },
+          {
+            "name": "statusDescription",
+            "type": ["null", "string"],
+            "doc": "The payment schedule line status description",
+            "default": null
+          }
+    ]
+}
+],
+              "default":null
+         }
+     ]
+ }
+,
+            "doc": "Payment Schedule deposit"
+        },
+        {
+            "name": "paymentScheduleLines",
+            "type": {
+                "type":"array",
+                "items":
+{
+    "type": "record",
+    "namespace": "com.vistajet.contracts.avro",
+    "name": "PaymentScheduleLine",
+    "fields": [
+        {
+           "name": "aggregateId",
+           "type": "string",
+           "doc": "The entity UUID"
+        },
+        {
+            "name": "paymentScheduleAggregateId",
+            "type": "string",
+            "doc": "The Payment Schedule UUID"
+        },
+        {
+            "name": "invoiceId",
+            "type": ["null", "string"],
+            "doc": "The gv invoice aggregateId for payment line",
+            "default": null
+        },
+        {
+            "name": "invoiceLinkId",
+            "type": ["null", "long"],
+            "doc": "The gv invoice unique aggregateId for payment line",
+            "default": null
+        },
+        {
+            "name": "dueDate",
+            "type": "string",
+            "doc": "The payment schedule line due date"
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "doc": "The payment schedule line description"
+        },
+        {
+            "name": "amountInCents",
+            "type": "long",
+            "doc": "The payment schedule line amount in cents",
+            "default": 0
+        },
+        {
+             "name": "invoiceStatus",
+             "type": ["null", "com.vistajet.contracts.avro.InvoiceStatus"],
+             "default":null
+        },
+        {
+            "name": "isPaid",
+            "type": "boolean",
+            "doc": "The payment schedule line paid status",
+            "default": false
+        },
+        {
+            "name": "isAdHoc",
+            "type": "boolean",
+            "doc": "The payment schedule line ad hoc status",
+            "default": false
+        },
+        {
+            "name": "isActive",
+            "type": "boolean",
+            "doc": "The payment schedule line is active",
+            "default": false
+        }
+
+    ]
+}
+
+            },
+            "doc": "Payment Schedule Lines",
+            "default": []
+        }
+    ]
+}
+,
+             "doc": "The Payment Schedule for the current contract"
+         },
+         {
+             "name": "managementFees",
+             "type": [{
+                 "type":"array",
+                 "items":
+{
+     "type": "record",
+     "namespace": "com.vistajet.contracts.avro",
+     "name": "ManagementFee",
+     "fields": [
+         {
+             "name": "aggregateId",
+             "type": "string",
+             "doc": "The entity UUID"
+         },
+         {
+             "name": "contractAggregateId",
+             "type": "string",
+             "doc": "The Contract UUID"
+         },
+         {
+             "name": "managementFeeOptionsId",
+             "type": "long",
+             "doc": "The management fee options aggregateId"
+         },
+         {
+             "name": "managementFeeOptionsDescription",
+             "type": "string",
+             "doc": "The management fee selected options description"
+         },
+         {
+             "name": "acTypeId",
+             "type": "long",
+             "doc": "The GV aircraft type aggregateId"
+         },
+         {
+             "name": "managementFeePayments",
+             "type": {
+                 "type":"array",
+                 "items":
+                    {
+                        "type": "record",
+                        "namespace": "com.vistajet.contracts.avro",
+                        "name": "ManagementFeePayment",
+                        "fields": [
+                            {
+                               "name": "aggregateId",
+                               "type": "string",
+                               "doc": "The entity UUID"
+                            },
+                            {
+                                "name": "managementFeeAggregateId",
+                                "type": "string",
+                                "doc": "The Management Fee UUID"
+                            },
+                            {
+                                "name": "linkId",
+                                "type": ["null","long"],
+                                "doc": "The management fee payment link aggregateId",
+                                "default": null
+                            },
+                            {
+                                "name": "description",
+                                "type": ["null", "string"],
+                                "doc": "The management fee payment's description",
+                                "default": null
+                            },
+                            {
+                                "name": "dateFrom",
+                                "type": ["null","string"],
+                                "doc": "The management fee payment date range from",
+                                "default": null
+                            },
+                            {
+                                "name": "dateTo",
+                                "type": ["null","string"],
+                                "doc": "The management fee payment date range to",
+                                "default": null
+                            },
+                            {
+                                "name": "dueDate",
+                                "type": ["null","string"],
+                                "doc": "The management fee payment due date",
+                                "default": null
+                            },
+                            {
+                                "name": "amountInCents",
+                                "type": "long",
+                                "doc": "The management fee payment amount in cents",
+                                "default": 0
+                            },
+                            {
+                                "name": "amountUsedInCents",
+                                "type": "long",
+                                "doc": "The management fee payment used amount in cents",
+                                "default": 0
+                            },
+                            {
+                                "name": "balanceInCents",
+                                "type": "long",
+                                "doc": "The management fee payment balance in cents",
+                                "default": 0
+                            },
+                            {
+                                "name": "managementFeeRateCents",
+                                "type": "long",
+                                "doc": "The management fee payment rate in cents",
+                                "default": 0
+                            },
+                            {
+                                "name": "invoiceId",
+                                "type": ["null","string"],
+                                "doc": "The management fee payment invoice invoice_id",
+                                "default": null
+                            },
+                            {
+                                "name": "invoiceLinkId",
+                                "type": ["null","long"],
+                                "doc": "The management fee payment invoice linked_invoice_id",
+                                "default": null
+                            }
+                        ]
+                    }
+             },
+             "doc": "The management fee payments for the current contract",
+             "default":{}
+         }
+     ]
+ }
+
+             },"null"],
+             "default": {}
+         },
+         {
+             "name": "revision",
+             "type": ["null",
+{
+    "type": "record",
+    "namespace": "com.vistajet.contracts.avro",
+    "name": "Revision",
+    "fields": [
+        {
+            "name": "id",
+            "type": ["null", "long"],
+            "doc": "The revision id",
+            "default": null
+        },
+        {
+            "name": "revisionNumber",
+            "type": ["null", "int"],
+            "doc": "The number of revision for current contract",
+            "default": null
+        },
+        {
+            "name": "username",
+            "type": "string",
+            "doc": "The username of who changed the contract"
+        },
+        {
+            "name": "fullName",
+            "type": "string",
+            "doc": "The name of who changed the contract"
+        },
+        {
+            "name": "activityTypeId",
+            "type": ["null", "int"],
+            "doc": "The type of activity the revision is described by"
+        },
+        {
+            "name": "postDate",
+            "type": "string",
+            "doc": "The post date"
+        },
+        {
+            "name": "note",
+            "type": ["null", "string"],
+            "doc": "The note of revision"
+        }
+    ]
+}
+],
+             "default":null
+         }
+     ]
+ }
